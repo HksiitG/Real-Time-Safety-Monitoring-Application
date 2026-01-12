@@ -1,0 +1,49 @@
+#define rled 12
+#define gled 13
+#define buzz 11
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(buzz, OUTPUT);
+  pinMode(rled, OUTPUT);
+  pinMode(gled, OUTPUT);
+}
+
+void loop()
+{
+  int sensorValue = analogRead(A0);
+  Serial.println(sensorValue);
+  delay(200);
+
+  if (sensorValue < 500 && sensorValue > 300)
+  {
+    digitalWrite(gled, LOW);
+    digitalWrite(rled, HIGH);
+    delay(500);
+    digitalWrite(rled, LOW);
+    delay(200);
+    analogWrite(buzz, 100);
+  }
+  else if (sensorValue > 500)
+  {
+    digitalWrite(gled, LOW);
+    digitalWrite(rled, HIGH);
+    analogWrite(buzz, 200);
+  }
+  else if (sensorValue < 300 && sensorValue > 200)
+  {
+    digitalWrite(gled, HIGH);
+    delay(500);
+    digitalWrite(gled, LOW);
+    delay(200);
+    digitalWrite(rled, LOW);
+    digitalWrite(buzz, LOW);
+  }
+  else
+  {
+    digitalWrite(gled, HIGH);
+    digitalWrite(rled, LOW);
+    digitalWrite(buzz, LOW);
+  }
+}
